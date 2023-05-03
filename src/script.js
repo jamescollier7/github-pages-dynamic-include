@@ -7,14 +7,14 @@
   dynamicIncludeElements.forEach(processEachDynamicInclude)
   
   function processEachDynamicInclude(element) {
-    let result = ``
+    let html = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
-    result = resultHistory.has(path) ? resultHistory.get(path) : getResults(path)
+    html = resultHistory.has(path) ? resultHistory.get(path) : getResults(path)
     
     resultHistory.set(path, html)
     
-    element.outerHTML = result
+    element.outerHTML = html
   }
   
   async function getResults(path) {
