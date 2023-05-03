@@ -21,4 +21,5 @@
     const response = await fetch(dynamicIncludePath)
     const html = await response.text()
     return html
+  }
 })()
