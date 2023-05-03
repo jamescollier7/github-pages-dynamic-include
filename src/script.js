@@ -10,7 +10,7 @@
     let result = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
-    result = resultHistory.has(path) ? resultHistory.get(path) : await getResults(path)
+    result = resultHistory.has(path) ? resultHistory.get(path) : getResults(path)
     
     resultHistory.set(path, html)
     
