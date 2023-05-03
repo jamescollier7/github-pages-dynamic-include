@@ -10,15 +10,15 @@
     let html = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
-    html = resultHistory.has(path) ? resultHistory.get(path) : getResults(path)
+    html = resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path)
     
     resultHistory.set(path, html)
     
     element.outerHTML = html
   }
   
-  async function getResults(path) {
-    const response = await fetch(dynamicIncludePath)
+  async function fetchHtml(path) {
+    const response = await fetch(path)
     const html = await response.text()
     return html
   }
