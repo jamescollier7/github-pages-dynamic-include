@@ -2,21 +2,23 @@
   'use strict';
   
   const dynamicIncludeElements = document.querySelectorAll(`[data-dynamic-include]`)
-  const dynamicResults = new Map();
-  dynamicIncludeElements.forEach((dynamicIncludeElement)=>{
-    const dynamicIncludePath = dynamicIncludeElement.getAttribute(`data-dynamic-include`)
+  const resultHistory = new Map()
+  
+  dynamicIncludeElements.forEach(processEachDynamicInclude)
+  
+  function processEachDynamicInclude(element) {
     let result = ``
+    const path = element.getAttribute(`data-dynamic-include`)
     
-    if (dynamicResults.has(dynamicIncludePath)) {
-      result = dynamicResults.get(dynamicIncludePath)
-    } else {
-      result = await fetch(dynamicIncludePath).then((response) => response.text())
-      .then((html) => {
-        dynamicResults.set(dynamicIncludePath, html)
-        return html
-      }).catch((err) => console.warn(`Something went wrong...`, err))
-    }
+    result = resultHistory.has(path) ? resultHistory.get(path) : await getResults(path)
     
-    dynamicIncludeElement.outerHTML = result
-  })
+    resultHistory.set(path, html)
+    
+    element.outerHTML = result
+  }
+  
+  async function getResults(path) {
+    const response = await fetch(dynamicIncludePath)
+    const html = await response.text()
+    return html
 })()
