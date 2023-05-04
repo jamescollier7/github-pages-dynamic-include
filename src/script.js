@@ -6,11 +6,11 @@
   
   dynamicIncludeElements.forEach(processEachDynamicInclude)
   
-  function processEachDynamicInclude(element) {
+  async function processEachDynamicInclude(element) {
     let html = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
-    html = resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path)
+    html = await resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path)
     
     resultHistory.set(path, html)
     
