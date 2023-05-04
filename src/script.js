@@ -1,20 +1,35 @@
 (()=>{
   'use strict';
   
-  const dynamicIncludeElements = document.querySelectorAll(`[data-dynamic-include]`)
-  const resultHistory = new Map()
+  const includeElements = document.querySelectorAll(`[data-include]`)
+  const groupedIncludeMap = groupIncludesIntoMap(includeElements)
   
-  dynamicIncludeElements.forEach(processDynamicInclude)
+  groupedIncludeMap.forEach(processGroupOfIncludes)
   
-  async function processDynamicInclude(element) {
-    let html = ``
-    const path = element.getAttribute(`data-dynamic-include`)
+  /*
+    Given a set of elements that have paths, group the elements that have the same path
+  */
+  function groupIncludesIntoMap(includeElements) {
+    return includeElements.reduce((accumulator, currentValue) => {
+      let arrayOfElements = accumulator.get(path)
+
+      if (!arrayOfElements) {
+        arrayOfElements = []
+      }
+
+      arrayOfElements.push(element)
+
+      accumulator.set(path, arrayOfElements)
+    }, new Map())
+  }
+  
+  async function processGroupOfIncludes(group) {
+    console.log(group)
+    const html = await fetchHtml(group.key)
     
-    html = Promise.resolve(await resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path))
-    
-    resultHistory.set(path, html)
-    
-    element.outerHTML = html
+    group.values.forEach((includeEle) => {
+      includeEle.outerHTML = html
+    })
   }
   
   async function fetchHtml(path) {
