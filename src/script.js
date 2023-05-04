@@ -13,7 +13,7 @@
   function groupIncludesIntoMap(includeElements) {
     const arrayOfIncludeElements = Array.from(includeElements)
     return arrayOfIncludeElements.reduce((accumulatorMap, includeElement) => {
-      const path = includeElement.getAttribute(`data-include`))
+      const path = includeElement.getAttribute(`data-include`)
       let arrayOfElements = accumulatorMap.get(path)
 
       if (!arrayOfElements) {
