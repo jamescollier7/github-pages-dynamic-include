@@ -4,9 +4,9 @@
   const dynamicIncludeElements = document.querySelectorAll(`[data-dynamic-include]`)
   const resultHistory = new Map()
   
-  dynamicIncludeElements.forEach(processEachDynamicInclude)
+  dynamicIncludeElements.forEach(processDynamicInclude)
   
-  async function processEachDynamicInclude(element) {
+  async function processDynamicInclude(element) {
     let html = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
