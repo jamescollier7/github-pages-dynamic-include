@@ -23,6 +23,8 @@
       arrayOfElements.push(includeElement)
 
       accumulatorMap.set(path, arrayOfElements)
+      
+      return accumulatorMap
     }, new Map())
   }
   
