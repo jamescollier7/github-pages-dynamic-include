@@ -32,13 +32,10 @@
     Use the path of a group, fetch the data using that path, 
     and inject the result into each of the elements in the group
   */
-  async function processGroupOfIncludes(group) {
-    console.log(group)
-    const html = await fetchHtml(group.key)
+  async function processGroupOfIncludes(arrayOfElements, path) {
+    const html = await fetchHtml(path)
     
-    group.values.forEach((includeEle) => {
-      includeEle.outerHTML = html
-    })
+    arrayOfElements.forEach((includeEle) => includeEle.outerHTML = html)
   }
   
   /*
