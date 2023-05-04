@@ -20,7 +20,7 @@
         arrayOfElements = []
       }
 
-      arrayOfElements.push(element)
+      arrayOfElements.push(includeElement)
 
       accumulatorMap.set(path, arrayOfElements)
     }, new Map())
