@@ -7,12 +7,14 @@
   groupedIncludeMap.forEach(processGroupOfIncludes)
   
   /*
-    Given a set of elements that have paths, group the elements 
-    that have the same path
+    Reduce a set of elements with paths to a Map of paths with 
+    an array of those elements
   */
   function groupIncludesIntoMap(includeElements) {
-    return includeElements.reduce((accumulator, currentValue) => {
-      let arrayOfElements = accumulator.get(path)
+    const arrayOfIncludeElements = Array.from(includeElements)
+    return arrayOfIncludeElements.reduce((accumulatorMap, includeElement) => {
+      const path = includeElement.getAttribute(`data-include`))
+      let arrayOfElements = accumulatorMap.get(path)
 
       if (!arrayOfElements) {
         arrayOfElements = []
@@ -20,7 +22,7 @@
 
       arrayOfElements.push(element)
 
-      accumulator.set(path, arrayOfElements)
+      accumulatorMap.set(path, arrayOfElements)
     }, new Map())
   }
   
