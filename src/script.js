@@ -10,7 +10,7 @@
     let html = ``
     const path = element.getAttribute(`data-dynamic-include`)
     
-    html = await resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path)
+    html = Promise.resolve(await resultHistory.has(path) ? resultHistory.get(path) : fetchHtml(path))
     
     resultHistory.set(path, html)
     
