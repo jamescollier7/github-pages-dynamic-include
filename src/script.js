@@ -42,11 +42,17 @@
   
   /*
     Use the path of a group, fetch the data using that path, 
-    and inject the result into each of the elements in the group
+    and inject the result into each of the elements in the group.
+    
+    Cache the responses for this session to prevent duplicate calls
   */
   async function processGroupOfIncludes(arrayOfElements, path) {
-    const html = await fetchHtml(path)
-    
+    let html = sessionStorage.getItem(path)
+    if (!html) {
+      html = await fetchHtml(path)
+      sessionStorage.setItem(path, html);
+    }
+
     arrayOfElements.forEach((includeEle) => includeEle.outerHTML = html)
   }
   
