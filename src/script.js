@@ -7,13 +7,15 @@
   groupedIncludeMap.forEach(processGroupOfIncludes)
   
   /*
-    Reduce a set of elements with paths to a Map of paths with 
-    an array of those elements -- e.g.
-      <div id="1" data-include="hi.html"></div>
-      <div id="2" data-include="hi.html"></div>
-      <div id="3" data-include="hey.html"></div>
+    Reduce an array of dom elements with paths to a Map of paths 
+    with an array of those elements -- for example:
+      [
+        <div id="1" data-include="hi.html"></div>,
+        <div id="2" data-include="hi.html"></div>,
+        <div id="3" data-include="hey.html"></div>
+      ]
       
-      turns into
+      turns into a map like:
       
       {
         'hi.html': ['<div id="1">' , '<div id="2">'],
