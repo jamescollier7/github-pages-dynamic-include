@@ -2,15 +2,25 @@
   'use strict';
   
   const includeElements = document.querySelectorAll(`[data-include]`)
-  const groupedIncludeMap = groupIncludesIntoMap(includeElements)
+  const groupedIncludeMap = groupIncludeElementsIntoMap(includeElements)
   
   groupedIncludeMap.forEach(processGroupOfIncludes)
   
   /*
     Reduce a set of elements with paths to a Map of paths with 
-    an array of those elements
+    an array of those elements -- e.g.
+      <div id="1" data-include="hi.html"></div>
+      <div id="2" data-include="hi.html"></div>
+      <div id="3" data-include="hey.html"></div>
+      
+      turns into
+      
+      {
+        'hi.html': ['<div id="1">' , '<div id="2">'],
+        'hey.html': ['<div id="3">']
+      }
   */
-  function groupIncludesIntoMap(includeElements) {
+  function groupIncludeElementsIntoMap(includeElements) {
     const arrayOfIncludeElements = Array.from(includeElements)
     return arrayOfIncludeElements.reduce((accumulatorMap, includeElement) => {
       const path = includeElement.getAttribute(`data-include`)
